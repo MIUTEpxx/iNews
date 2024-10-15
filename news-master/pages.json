@@ -1,0 +1,84 @@
+{
+	"pages": [
+		{
+			"path": "pages/index/index",//页面的路径
+			"style": {//页面的样式
+				"navigationBarTitleText": "iNews 爱新闻"//页面标题
+			}
+		}
+	    ,{
+            "path" : "pages/user/user",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "个人中心",
+                "enablePullDownRefresh": false //是否开启下拉刷新
+            }
+            
+        }
+        ,{
+            "path" : "pages/detail/detail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "新闻详情",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		    "path" : "pages/user/history",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "历史记录",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/test/test",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "test",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/test/test2",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "test",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+    ],
+	"globalStyle": {//定义了小程序的全局样式
+		"navigationBarTextStyle": "white",//导航栏的文本颜色
+		"navigationBarTitleText": "iNews 爱新闻",//标题
+		"navigationBarBackgroundColor": "#31C27C",//背景颜色
+		"backgroundColor": "#F8F8F8"//窗口的背景颜色
+	},
+	"uniIdRouter": {},//用于处理用户身份认证的路由配置
+	"tabBar": {//底部导航栏
+		"color":"#666",//文字的默认颜色
+		"selectedColor": "#31C27C",//选中时的颜色
+		"list": [
+			{
+				"text": "首页",
+				"pagePath": "pages/index/index",
+				"iconPath": "static/images/home.png",//选项卡上未选中状态的图标路径
+				"selectedIconPath": "static/images/home-h.png"//选项卡上选中状态的图标路径
+			},{
+				"text": "个人",
+				"pagePath": "pages/user/user",
+				"iconPath": "static/images/user.png",
+				"selectedIconPath": "static/images/user-h.png"
+			},{
+				"text": "测试",
+				"pagePath": "pages/test/test",
+				"iconPath": "static/images/user.png",
+				"selectedIconPath": "static/images/user-h.png"
+			}
+		]
+	}
+}
