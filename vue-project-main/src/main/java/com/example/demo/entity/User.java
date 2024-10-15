@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+//@Data简化代码，提供getter、setter、toString、equals和hashCode等方法
 @Data
 public class User {
     private Integer id;
