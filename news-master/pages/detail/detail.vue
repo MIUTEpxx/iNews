@@ -26,6 +26,7 @@
 		},
 		onLoad(e){			
 			this.options=e;
+			console.log(this.options);
 			this.getDetail();
 		},
 		methods:{

@@ -15,7 +15,7 @@
 				<newsbox :item="item" @click.native="goDetail(item)"></newsbox>
 			</div>
 		</view>
-		
+		<!-- 若未能获取到新闻列表数据 -->
 		<view class="nodata" v-if="!newsArr.length">
 			<image src="../../static/images/nodata.png" mode="widthFix"></image>
 		</view>
@@ -69,38 +69,61 @@
 				uni.navigateTo({
 					url:`/pages/detail/detail?cid=${item.classid}&id=${item.id}`
 				})
+				console.log(item.classid);
+				console.log(item.id);
 			},
 			
 			//获取导航列表数据
 			getNavData(){
+				// uni.request({
+				// 	url:"https://ku.qingnian8.com/dataApi/news/navlist.php",
+				// 	success:res=>{
+				// 		console.log(res.data)
+				// 		this.navArr=res.data
+				// 	}
+				// })
 				uni.request({
-					url:"https://ku.qingnian8.com/dataApi/news/navlist.php",
-					success:res=>{
-						console.log(res.data)
-						this.navArr=res.data
-					}
-				})
+				        url: "http://localhost:9090/api/nav", 
+				        success: res => {
+				            // console.log(res.data)
+				            this.navArr = res.data
+				        }
+				    })
 			},
 			
 			//获取新闻列表数据
 			getNewsData() {
-			    uni.request({
-			        url: "https://ku.qingnian8.com/dataApi/news/newslist.php",
-			        data: {                       
-			            cid: this.currentId,
-			            page: this.currentPage
-			        },
-			        success: res => {
-			            console.log(res)
-			            if (res.data.length == 0) {
-			                this.loading = 2;
-			            } else {
-			                // 跳过前两个数据
-			                const slicedData = res.data.slice(2);
-			                this.newsArr = [...this.newsArr, ...slicedData];
-			            }
-			        }
-			    })
+			    // uni.request({
+			    //     url: "https://ku.qingnian8.com/dataApi/news/newslist.php",
+			    //     data: {                       
+			    //         cid: this.currentId,
+			    //         page: this.currentPage
+			    //     },
+			    //     success: res => {
+			    //         console.log(res)
+			    //         if (res.data.length == 0) {
+			    //             this.loading = 2;
+			    //         } else {
+			    //             const slicedData = res.data.slice(0);
+			    //             this.newsArr = [...this.newsArr, ...slicedData];
+			    //         }
+			    //     }
+			    // })
+				 uni.request({
+				        url: "http://localhost:9090/api/news/classid/" + this.currentId,
+				        data: {
+				            // page: this.currentPage
+				        },
+				        success: res => {
+				            // console.log(res)
+				            if (res.data.length == 0) {
+				                this.loading = 2;
+				            } else {
+				                const slicedData = res.data.slice(0);
+				                this.newsArr = [...this.newsArr, ...slicedData];
+				            }
+				        }
+				    })
 			}
 			
 		}

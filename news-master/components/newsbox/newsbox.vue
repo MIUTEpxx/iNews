@@ -1,7 +1,10 @@
 <template>
+	<!-- 新闻简略信息项 -->
 	<view class="newsbox">
 		<view class="pic">
-			<image :src="item.picurl" mode="aspectFill"></image>
+			<!-- 新闻封面图 -->
+			<image :src="'http://localhost:9090' + item.picurl" mode="aspectFill"></image>
+			<!-- <image :src="item.picurl" mode="aspectFill"></image> -->
 		</view>
 		<view class="text">
 			<view class="title">				
