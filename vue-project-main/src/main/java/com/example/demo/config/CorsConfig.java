@@ -6,6 +6,8 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
+import java.util.Arrays;
+
 //@Configuration注解表示这是一个配置类，Spring容器会加载这个类中的所有@Bean定义的Bean。
 @Configuration
 public class CorsConfig {//跨域请求的配置
@@ -19,7 +21,11 @@ public class CorsConfig {//跨域请求的配置
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        corsConfiguration.addAllowedOrigin("http://localhost:8081"); // 1 设置允许访问源地址
+        // 设置多个允许访问的源地址
+        corsConfiguration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:8080", // 第一个源地址
+                "http://localhost:8081"// 第二个源地址
+        ));
         corsConfiguration.addAllowedHeader("*"); // 2 设置访问源请求头:允许所有的请求头
         corsConfiguration.addAllowedMethod("*"); // 3 设置访问源请求方法:允许所有的HTTP方法（GET, POST, PUT, DELETE等）。
         corsConfiguration.setMaxAge(MAX_AGE);//设置预检请求的结果可以缓存的最大时间为MAX_AGE。
