@@ -40,7 +40,11 @@
 						//console.log("res.data.posttim: "+res.data.posttim)
 						res.data.posttime=parseTime(res.data.posttime)
 						console.log("res.data.content: "+res.data.content)
-						res.data.content=res.data.content.replace(/<img/gi,'<img style="max-width:100%"')						
+						///<img/gi 是一个正则表达式，其中：<img 是要查找的字符串。
+						//g 表示全局匹配，即匹配整个字符串中所有出现的 
+						//i 表示不区分大小写
+						
+						res.data.content=res.data.content.replace(/<img/gi,'<img style="max-width:100%"')
 						this.detail=res.data
 						this.saveHistory()
 						

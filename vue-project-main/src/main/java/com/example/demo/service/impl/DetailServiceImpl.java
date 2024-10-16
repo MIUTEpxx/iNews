@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 public class DetailServiceImpl implements DetailService {
     @Autowired
     private DetailMapper detailMapper;
+    @Autowired
     private NewsService newsService;
 
 
