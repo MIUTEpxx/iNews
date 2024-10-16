@@ -25,21 +25,23 @@
 			};
 		},
 		onLoad(e){			
-			this.options=e;
-			console.log(this.options);
+			this.options=e;//e 包含了 cid 和 id
+			// console.log("cid: " + e.cid); // 输出新闻分类的ID
+			console.log("id: " + e.id);   // 输出新闻的ID
 			this.getDetail();
 		},
 		methods:{
 			getDetail(){
 				uni.request({
-					url:"https://ku.qingnian8.com/dataApi/news/detail.php",
-					data:this.options,
+					// url:"https://ku.qingnian8.com/dataApi/news/detail.php",
+					// data:this.options,
+					url:"http://localhost:9090/api/detail/"+this.options.id,
 					success:res=>{
-						console.log(res)
+						//console.log("res.data.posttim: "+res.data.posttim)
 						res.data.posttime=parseTime(res.data.posttime)
+						console.log("res.data.content: "+res.data.content)
 						res.data.content=res.data.content.replace(/<img/gi,'<img style="max-width:100%"')						
 						this.detail=res.data
-						
 						this.saveHistory()
 						
 						uni.setNavigationBarTitle({

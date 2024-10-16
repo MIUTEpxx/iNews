@@ -12,8 +12,11 @@ import java.util.List;
 public interface NewsMapper {
 
     @Select("SELECT * FROM newslist")
-    List<Nav> getAllNews();
+    List<News> getAllNews();
 
     @Select("SELECT * FROM newslist WHERE classid = #{classid}")
     List<News> getNewsByClassId(@Param("classid") Integer classid);
+
+    @Select("SELECT * FROM newslist WHERE id = #{id}")
+    News getNewsById(@Param("id") Integer id);
 }

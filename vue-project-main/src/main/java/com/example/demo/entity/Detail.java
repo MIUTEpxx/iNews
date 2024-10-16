@@ -2,9 +2,9 @@ package com.example.demo.entity;
 
 import lombok.Data;
 
-//新闻栏目
 @Data
-public class Nav {
+public class Detail {
     private Integer id;
-    private String classname;
+    private String content;
+    private Integer classid;
 }

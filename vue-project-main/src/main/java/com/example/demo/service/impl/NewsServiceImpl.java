@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+//作为服务层的具体实现，NewsServiceImpl 实现了 NewsService 接口中定义的所有方法，包含具体的业务逻辑处理代码。
 @Service
 public class NewsServiceImpl implements NewsService {
 
@@ -18,6 +19,10 @@ public class NewsServiceImpl implements NewsService {
     @Override
     public List<News> getNewsByClassId(Integer classid){
         return newsMapper.getNewsByClassId(classid);
+    }
+    @Override
+    public News getNewsById(Integer id){
+        return newsMapper.getNewsById(id);
     }
 
 }
