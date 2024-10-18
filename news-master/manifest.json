@@ -106,7 +106,7 @@
     },
     "vueVersion" : "2",
     "h5" : {
-        "title" : "青年帮新闻",
+        "title" : "iNews爱新闻",
         "router" : {
             "base" : "./"
         }

@@ -34,6 +34,24 @@
 		    
 		},
 		{
+		    "path" : "pages/user/login",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "登录界面",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/user/signUp",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "账号注册界面",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
 		    "path" : "pages/test/test",
 		    "style" :                                                                                    
 		    {

@@ -3,14 +3,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.demo.mapper.UserMapper">
     <update id="update">
-        update sys_user
+        update use
         <set>
-            <if test="username != null">
-                username = #{username},
+            <if test="password != null">
+                password = #{password}
             </if>
-<!--            <if test="password != null">-->
-<!--                password = #{password}-->
-<!--            </if>-->
             <if test="nickname != null">
                 nickname = #{nickname},
             </if>
@@ -19,9 +16,6 @@
             </if>
             <if test="phone != null">
                 phone = #{phone},
-            </if>
-            <if test="address != null">
-                address = #{address}
             </if>
         </set>
         <where>

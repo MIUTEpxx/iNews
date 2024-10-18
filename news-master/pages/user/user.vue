@@ -1,16 +1,12 @@
 <template>
 	<view class="user">
-		<view class="user-hd">
-			<view class="user-img">
-				<img src="../../static/images/logo2.png" alt="" />
-			</view>
-			<view class="user-info">
-				<view class="name">
-					{{userName}}
-				</view>
-			</view>
+		<view v-if="!app.globalData.isLoggedIn" >
+			<user-hd-unLogin></user-hd-unLogin>
 		</view>
-		
+		<view v-if="app.globalData.isLoggedIn" >
+			<user-hd  :userId="app.globalData.userId" :user="user"></user-hd>
+			<user-body></user-body>
+		</view>
 		
 	</view>
 </template>
@@ -19,16 +15,34 @@
 	export default {
 		data() {
 			return {
-				userName:'游客'
+				app:{},
+				user:{}
 			};
 		},
-		onShow(){
-			this.getUserData()
+		onLoad(){//页面加载时触发，只会调用一次
+			this.app = getApp();
+			this.getUserInfo();
+		},
+		onShow(){//页面显示/切入前台时触发
+			this.getUserInfo();
 		},
 		methods:{
 			//获取用户数据
-			getUserData(){
-				
+			getUserInfo(){
+				if(!this.app.globalData.isLoggedIn) return;
+				uni.request({
+				    url: "http://localhost:9090/user/"+this.app.globalData.userId, 
+					method:'GET',
+				    success: res => {
+				        this.user=res.data,
+						this.user.picurl='http://localhost:9090' + this.user.picurl;
+						console.log("123",this.user);
+				    },
+					fail: (err) => {
+					      // 请求失败的处理逻辑
+					      console.error('用户id:'+this.app.globalData.userId+' 数据请求失败:', err);
+					    }
+				})
 			}
 		}
 	}
@@ -36,25 +50,6 @@
 
 <style lang="scss">
 .user{
-	.user-hd{
-		display: flex;
-		justify-content: flex-start;
-		margin: 10px;
-		padding:20px;
-		background: #31C27C;
-		border-radius: 10px;
-		// box-shadow: 1px 1px 3px 1px #c8c8c8;
-		.user-img {
-			img{
-				border: 2px solid #fff;
-				border-radius: 50%;
-			}
-		}
-		.user-info{
-			margin-left: 20px;
-			color: #fff;
-			
-		}
-	}
+	
 }
 </style>

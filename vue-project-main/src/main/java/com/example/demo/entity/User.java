@@ -9,13 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 public class User {
     private Integer id;
-    private String username;
-    @JsonIgnore
+    @JsonIgnore//隐藏不应该对外公开的字段 告诉Jackson序列化器在序列化Java对象到JSON字符串或者从JSON字符串反序列化到Java对象时忽略被注解的字段 防止敏感信息（如密码）被意外地暴露在客户端或者通过网络传输
     private String password;
     private String nickname;
     private String email;
     private String phone;
-    private String address;
-
-
+    private String picurl;
 }

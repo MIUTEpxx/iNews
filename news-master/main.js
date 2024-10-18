@@ -4,6 +4,9 @@ import App from './App'
 import Vue from 'vue'
 Vue.config.productionTip = false
 App.mpType = 'app'
+// 添加一个全局事件总线
+Vue.prototype.$eventBus = new Vue()
+
 const app = new Vue({
     ...App
 })

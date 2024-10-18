@@ -19,6 +19,12 @@ public class UserService {
             return userMapper.update(user);//更新现有用户记录
         }
     }
+    public User getUserById(Integer id) {
+        return userMapper.getUserById(id);
+    }
+    public User getUserByNickname(String nickname) {
+        return userMapper.getUserBynickname(nickname);
+    }
 }
 /*这个服务类UserService提供了一个简单的业务逻辑层，用于处理用户的保存和更新操作。
 它依赖于UserMapper接口来与数据库进行交互。
