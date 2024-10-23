@@ -7,6 +7,7 @@ import com.example.demo.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 //作为服务层的具体实现，NewsServiceImpl 实现了 NewsService 接口中定义的所有方法，包含具体的业务逻辑处理代码。
@@ -24,5 +25,12 @@ public class NewsServiceImpl implements NewsService {
     public News getNewsById(Integer id){
         return newsMapper.getNewsById(id);
     }
-
+    @Override
+    public List<News> getNewsByIds(List<Integer> newsids){
+        List<News> newsList = new ArrayList<>();
+        for(Integer id : newsids){
+            newsList.add(newsMapper.getNewsById(id));
+        }
+        return newsList;
+    }
 }

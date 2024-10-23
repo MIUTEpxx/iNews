@@ -52,21 +52,13 @@
 		    
 		},
 		{
-		    "path" : "pages/test/test",
+		    "path" : "pages/user/favorites",
 		    "style" :                                                                                    
 		    {
-		        "navigationBarTitleText": "test",
+		        "navigationBarTitleText": "收藏列表",
 		        "enablePullDownRefresh": false
 		    }
 		    
-		},
-		{
-		    "path" : "pages/test/test2",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "test",
-		        "enablePullDownRefresh": false
-		    }
 		    
 		}
     ],
@@ -91,12 +83,13 @@
 				"pagePath": "pages/user/user",
 				"iconPath": "static/images/user.png",
 				"selectedIconPath": "static/images/user-h.png"
-			},{
-				"text": "测试",
-				"pagePath": "pages/test/test",
-				"iconPath": "static/images/user.png",
-				"selectedIconPath": "static/images/user-h.png"
 			}
+			// ,{
+			// 	"text": "测试",
+			// 	"pagePath": "pages/test/test",
+			// 	"iconPath": "static/images/user.png",
+			// 	"selectedIconPath": "static/images/user-h.png"
+			// }
 		]
 	}
 }

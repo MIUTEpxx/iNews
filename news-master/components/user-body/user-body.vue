@@ -2,8 +2,10 @@
 	<view class="user-body">
 	    <ul>
 			<li v-for="(v,i) in item" :key="i">
-				<i :class="`iconfont ${v.icon}`"></i>
-				<p>{{ v.title }}</p>
+				<view class="item" @click="goTo(v.router)">
+					<i :class="`iconfont ${v.icon}`"></i>
+					<p>{{ v.title }}</p>
+				</view>
 			</li>
 	    </ul>              
 	</view>        
@@ -14,13 +16,31 @@
 		data(){
 			return{
 				item:[
-					{title:'历史记录',icon:'icon-lishijilu'},
-					{title:'我的收藏',icon:'icon-shoucang'},
-					{title:'我的评论',icon:'icon-pinglun'},
-					{title:'消息通知',icon:'icon-xiaoxitongzhi'},
+					{title:'历史记录',icon:'icon-lishijilu',router:'/pages/user/history'},
+					{title:'我的收藏',icon:'icon-shoucang',router:'/pages/user/favorites'},
+					{title:'我的评论',icon:'icon-pinglun',router:'/pages/user/comment'},
+					{title:'消息通知',icon:'icon-xiaoxitongzhi',router:'/pages/user/message'},
 				]
 			};
-		}
+		},
+		methods:{
+			goTo(router){
+				if(getApp().globalData.isLoggedIn==false){
+					// 弹出提示
+					 uni.showToast({
+					   title: '请登录后操作',
+					   icon:"error",
+					   duration: 1000 // 弹窗显示的时间，单位毫秒
+					 });
+					 return;
+				}
+/* 				console.log(typeof(router));
+				console.log(router); */
+				uni.navigateTo({
+					url:router		
+				})
+			},
+		},
 	}
 </script>
 

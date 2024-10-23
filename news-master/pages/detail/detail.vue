@@ -8,7 +8,13 @@
 		<view class="content">
 			<rich-text :nodes="detail.content"></rich-text>			
 		</view>
-		<view class="description">
+		<view class="interaction">
+			<view class="favorites" v-if="!this.isFavorited" @click="changeFavorite">
+				<i class="iconfont icon-shoucang"></i>
+			</view>
+			<view class="favorites-yes" v-if="this.isFavorited" @click="changeFavorite">
+				<i class="iconfont icon-shoucang"></i>
+			</view>
 		</view>
 	</view>
 </template>
@@ -21,15 +27,32 @@
 		data() {
 			return {
 				options:null,
-				detail:{}
+				detail:{},
+				app:{},
+				isFavorited: false, // 表示新闻是否被收藏
 			};
 		},
 		onLoad(e){			
 			this.options=e;//e 包含了 cid 和 id
 			// console.log("cid: " + e.cid); // 输出新闻分类的ID
-			console.log("id: " + e.id);   // 输出新闻的ID
+			//console.log("id: " + e.id);   // 输出新闻的ID
 			this.getDetail();
+			this.app=getApp();
 		},
+		onShow() {
+		},
+		   watch: {
+		      'app.globalData': {
+		        handler: function(newVal, oldVal) {
+		          // 当app.globalData中的任何属性发生变化时，这个函数会被调用
+		          if (newVal.isLoggedIn) {
+					  //若为登录状态 检测该新闻是否已被该用户收藏
+		             this.checkFavorite();
+		          }
+		        },
+		        deep: true // 设置深度监听
+		      }
+		    },
 		methods:{
 			getDetail(){
 				uni.request({
@@ -39,7 +62,7 @@
 					success:res=>{
 						//console.log("res.data.posttim: "+res.data.posttim)
 						res.data.posttime=parseTime(res.data.posttime)
-						console.log("res.data.content: "+res.data.content)
+						//console.log("res.data.content: "+res.data.content)
 						///<img/gi 是一个正则表达式，其中：<img 是要查找的字符串。
 						//g 表示全局匹配，即匹配整个字符串中所有出现的 
 						//i 表示不区分大小写
@@ -76,6 +99,104 @@
 				historyArr.unshift(item)	
 				historyArr=historyArr.slice(0,10)		
 				uni.setStorageSync("historyArr",historyArr)
+			},
+			checkFavorite(){
+				console.log("check",this.isFavorited);
+				//检查该新闻是否已被收藏
+				uni.request({
+					url:"http://localhost:9090/api/favorites/check/"
+					+getApp().globalData.userId+"/"+this.options.id,
+					success:res=>{
+						if(res.data==true){
+							//用户收藏了该条新闻
+							this.isFavorited=true;
+						}else{
+							//用户未收藏该新闻
+							this.isFavorited=false;
+						}
+					},
+					fail: (err) => {
+					      // 请求失败的处理逻辑
+					      console.error('用户收藏数据请求失败:', err);
+					    }
+				})
+			},
+			changeFavorite(){
+				if(this.app.globalData.isLoggedIn==false){
+					// 弹出提示
+					 uni.showToast({
+					   title: '请登录后操作',
+					   icon:"error",
+					   duration: 1000 // 弹窗显示的时间，单位毫秒
+					 });
+					 return;
+				}
+				if(this.isFavorited==true){
+					//取消收藏
+					uni.request({
+						url:"http://localhost:9090/api/favorites/delete/"
+						+getApp().globalData.userId+"/"+this.options.id,
+						method:"DELETE",
+						success:res=>{
+							console.log("delete? ",res.data);
+							if(res.data==true){
+								//成功取消收藏
+								this.isFavorited=false;
+								// 弹出提示
+								 uni.showToast({
+								   title: '取消收藏',
+								   duration: 1000 // 弹窗显示的时间，单位毫秒
+								 });
+							}else{
+								//失败
+								this.isFavorited=true;
+								// 弹出提示
+								 uni.showToast({
+								   title: '取消收藏失败',
+								   icon:"error",
+								   duration: 1000 // 弹窗显示的时间，单位毫秒
+								 });
+							}
+						},
+						fail: (err) => {
+						      // 请求失败的处理逻辑
+						      console.error('用户收藏数据请求失败:', err);
+						    }
+					})
+					
+				}else{
+					//加入收藏
+					uni.request({
+						url:"http://localhost:9090/api/favorites/add/"
+						+getApp().globalData.userId+"/"+this.options.id,
+						method:"POST",
+						success:res=>{
+							console.log("add? ",res.data);
+							if(res.data==true){
+								//成功添加收藏
+								this.isFavorited=true;
+								// 弹出提示
+								 uni.showToast({
+								   title: '收藏成功',
+								   duration: 1000 // 弹窗显示的时间，单位毫秒
+								 });
+							}else{
+								//失败
+								this.isFavorited=false;
+								// 弹出提示
+								 uni.showToast({
+								   title: '收藏失败',
+								   icon:"error",
+								   duration: 1000 // 弹窗显示的时间，单位毫秒
+								 });
+							}
+						},
+						fail: (err) => {
+						      // 请求失败的处理逻辑
+						      console.error('用户收藏数据请求失败:', err);
+						    }
+					})
+				}
 			}
 		}
 	}
@@ -100,12 +221,31 @@
 	.content{
 		padding-bottom:50rpx;		
 	}
-	.description{
-		background: #FEF0F0;
-		font-size: 26rpx;
+	.interaction{
+		display: flex;
 		padding:20rpx;
-		color:#F89898;
-		line-height: 1.8em;
+		background: #e9f8ec;
+		border-radius: 25px;
+		.favorites{
+			padding: 5px;
+			background: white;
+			border-radius: 50%;
+			border: 3px solid #5d5b5b;
+			i{
+				color:#5d5b5b;
+				font-size: 40px;
+			}
+		}
+		.favorites-yes{
+			padding: 5px;
+			background: #feee89;
+			border-radius: 50%;
+			border: 3px solid #ff6d00;
+			i{
+				color:#ff6d00;
+				font-size: 40px;
+			}
+		}
 	}
 }
 </style>
