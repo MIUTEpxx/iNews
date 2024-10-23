@@ -5,7 +5,7 @@
 			<view class="item" 
 			v-for="(item,index) in navArr"
 			:class="index==navIndex ? 'active' : '' "  
-			@click="clickNav(index,item.id)"
+			@click="clickNav(index,item.id)" 
 			:key="item.id"
 			>{{item.classname}}<!-- 栏目名 --></view>			
 		</scroll-view>
@@ -70,8 +70,8 @@
 					url:`/pages/detail/detail?cid=${item.classid}&id=${item.id}`
 					//url:`/pages/detail/detail?id=${item.id}`
 				})
-				console.log(item.classid);
-				console.log(item.id);
+				//console.log(item.classid);
+				//console.log(item.id);
 			},
 			
 			//获取导航列表数据

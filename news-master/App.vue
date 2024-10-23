@@ -1,4 +1,7 @@
 <script>
+	import Vue from 'vue';
+	import { reactive } from 'vue';
+
 	export default {
 		 globalData: {//全局数据
 		    isLoggedIn: false,// 默认为未登录状态
@@ -6,7 +9,11 @@
 		  },
 		onLaunch: function() {
 			console.log('App Launch')
-			 this.globalData.isLoggedIn = false; // 默认为未登录状态
+			  // 使用 Vue.observable 使 globalData 响应式
+			     this.globalData = Vue.observable({
+			       isLoggedIn: false, // 默认为未登录状态
+			       userId: 0, // 存储用户id
+			     });
 		},
 		onShow: function() {
 			console.log('App Show')

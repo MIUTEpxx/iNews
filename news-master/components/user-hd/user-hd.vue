@@ -8,8 +8,13 @@
 			<view class="user-name">
 				{{this.user.nickname}}
 			</view>
-			<view class="login-button" @click="goLogin">
-				切换账号
+			<view class="button">
+				<view class="login-button" @click="goLogin">
+					切换账号
+				</view>
+				<view class="signOut-button " @click="signOut">
+					退出账号
+				</view>
 			</view>
 		</view>
 	</view>
@@ -47,7 +52,11 @@
 					//url:`/pages/detail/detail?cid=$51&id=1`
 				})
 			},
-			
+			signOut(){
+				this.$set(getApp().globalData,'userId',0)
+				this.$set(getApp().globalData,'isLoggedIn',false)
+				this.$forceUpdate()
+			},
 		}
 	}
 </script>
@@ -55,7 +64,7 @@
 <style>
 .user-hd-unLogin{
 		display: flex;
-		justify-content: flex-start;
+		justify-content: space-between;
 		margin: 10px;
 		padding:20px;
 		background: #31C27C;
@@ -79,14 +88,19 @@
 				/* 改变字与字间的间距 */
 				letter-spacing: 3px;
 			}
-			.login-button{
-				padding: 5px 10px;
-				margin: 20px 0 0 0;
-				border: 3px solid white;
-				border-radius: 30px;
-				color: white;
-				font-size: 14px;
+			.button{
+				display: flex;
+				.signOut-button,
+				.login-button{
+					padding: 5px 10px;
+					margin: 20px 10px 0 0;
+					border: 3px solid white;
+					border-radius: 30px;
+					color: white;
+					font-size: 14px;
+				}
 			}
+			
 		}
 	}	
 </style>

@@ -38,28 +38,48 @@ export default {
     checkboxChange(e) {
       this.isChecked = e.detail.value.length > 0;
     },
-	goSignUp(){
+	goSignUp(){//前往注册界面
 		uni.navigateTo({
 			url:`/pages/user/signUp`					
 		})
 	},
-	login(){
+	login(){//登录账号
 		// if(!this.isChecked) return;
-		console.log("login!");
+		//console.log("login!");
 		uni.request({
 		    url: "http://localhost:9090/user/login/"+this.userId+"/"+this.password, 
 			method:'GET',
 		    success: res => {
-		        this.user=res.data,
-				console.log("1234",this.user);
-				if(this.user!=null){
+		        this.user=res.data;
+				//console.log(this.user);
+				if(this.user!=null&&this.user!=""){//登录成功!更新用户全局数据
 					this.$set(getApp().globalData,'userId',this.user.id)
 					this.$set(getApp().globalData,'isLoggedIn',true)
 					this.$forceUpdate()
+					// 弹出登录成功的提示
+					 uni.showToast({
+					   title: '登录成功',
+					   icon: 'success',
+					   duration: 1500 // 弹窗显示的时间，单位毫秒
+					 });
+					 					
+					 // 2秒后回到上一个页面
+					 setTimeout(() => {
+					   uni.navigateBack({
+					     delta: 2 // 返回上一级页面
+					   });
+					 }, 1500);       
+				}else{
+					// 弹出登录失败的提示
+					 uni.showToast({
+					   title: '密码错误或账号不存在',
+					   icon: 'error',
+					   duration: 1500 // 弹窗显示的时间，单位毫秒
+					 });
 				}
 		    },
 			fail: (err) => {
-			      // 请求失败的处理逻辑
+			      // 登录请求失败的处理逻辑
 			      console.error('账号登录失败:', err);
 			    }
 		})
