@@ -34,16 +34,3 @@ public class FavoritesController {
         return favoritesService.checkIsFavorite(userid,newsid);
     }
 }
-/*
-*
-数据库新增表:收藏表favorite (包含项:userid,newsid)
-后端实现接口:
-根据用户id获得收藏表里对应新闻id,
-根据用户id获得对应新闻信息对象列表
-增删收藏信息
-检查该新闻id是否已被用户收藏
-前端新增收藏列表页面:pages\user\favorites
-前端新增功能:
-新闻详情页增加收藏按钮,用户登录后,可实现对对应新闻的收藏或取消收藏
-用户登录后,可在个人中心点击收藏图标进入收藏列表页面,以查看收藏的新闻
-* */

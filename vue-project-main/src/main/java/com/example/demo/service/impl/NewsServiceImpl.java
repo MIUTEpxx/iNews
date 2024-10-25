@@ -33,4 +33,10 @@ public class NewsServiceImpl implements NewsService {
         }
         return newsList;
     }
+    //更新id对应新闻的浏览量信息(使其加一)
+    @Override
+    public int increaseNewsHits(Integer newsId) {
+        return newsMapper.updateNewsHitsById(newsId);
+    }
+
 }

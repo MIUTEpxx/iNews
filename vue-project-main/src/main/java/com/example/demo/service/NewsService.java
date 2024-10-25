@@ -9,4 +9,5 @@ public interface  NewsService  {
     public List<News> getNewsByClassId(Integer  classid);
     public News getNewsById(Integer id);
     public List<News> getNewsByIds(List<Integer> newsids);
+    public int increaseNewsHits(Integer newsId);
 }

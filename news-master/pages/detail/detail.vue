@@ -48,6 +48,7 @@
 		          if (newVal.isLoggedIn) {
 					  //若为登录状态 检测该新闻是否已被该用户收藏
 		             this.checkFavorite();
+					 this.addHits();
 		          }
 		        },
 		        deep: true // 设置深度监听
@@ -101,8 +102,7 @@
 				uni.setStorageSync("historyArr",historyArr)
 			},
 			checkFavorite(){
-				console.log("check",this.isFavorited);
-				//检查该新闻是否已被收藏
+				//检查该新闻是否已被收藏			
 				uni.request({
 					url:"http://localhost:9090/api/favorites/check/"
 					+getApp().globalData.userId+"/"+this.options.id,
@@ -122,6 +122,7 @@
 				})
 			},
 			changeFavorite(){
+				//点击收藏按钮
 				if(this.app.globalData.isLoggedIn==false){
 					// 弹出提示
 					 uni.showToast({
@@ -197,6 +198,21 @@
 						    }
 					})
 				}
+			},
+			addHits(){
+				//增加该新闻的浏览量
+				uni.request({
+					url:"http://localhost:9090/api/news/hits/"
+					+this.options.id,
+					method:"PUT",
+					success:res=>{
+	
+					},
+					fail: (err) => {
+					      // 请求失败的处理逻辑
+					      console.error('新闻浏览量增加请求失败', err);
+					    }
+				})
 			}
 		}
 	}
