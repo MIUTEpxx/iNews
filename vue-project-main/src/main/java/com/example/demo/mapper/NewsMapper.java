@@ -13,14 +13,14 @@ import java.util.List;
 public interface NewsMapper {
 
     @Select("SELECT * FROM newslist")
-    List<News> getAllNews();
+     List<News> getAllNews();
 
     @Select("SELECT * FROM newslist WHERE classid = #{classid}")
-    List<News> getNewsByClassId(@Param("classid") Integer classid);
+     List<News> getNewsByClassId(@Param("classid") Integer classid);
 
     @Select("SELECT * FROM newslist WHERE id = #{id}")
-    News getNewsById(@Param("id") Integer id);
+     News getNewsById(@Param("id") Integer id);
     //更新新闻点击次数(浏览量)
     @Update("UPDATE newslist SET hits = hits + 1 WHERE id = #{id}")
-    int updateNewsHitsById(@Param("id") Integer id);
+     int updateNewsHitsById(@Param("id") Integer id);
 }

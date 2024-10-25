@@ -79,27 +79,19 @@
 				})
 			},
 			saveHistory(){
-				
-				let historyArr=uni.getStorageSync("historyArr") || []
-				let item={
-					id:this.detail.id,
-					classid:this.detail.classid,
-					picurl:this.detail.picurl,
-					title:this.detail.title,
-					looktime:parseTime(Date.now())
-				}
-				
-				let index=historyArr.findIndex(i=>{
-					return i.id==this.detail.id
+				//保存历史记录
+				uni.request({
+					url:"http://localhost:9090/api/history/save/"
+					+getApp().globalData.userId+'/'+this.options.id,
+					method:"POST",
+					success:res=>{
+						
+					},
+					fail: (err) => {
+					      // 请求失败的处理逻辑
+					      console.error('历史记录保存请求失败', err);
+					    }
 				})
-				
-				if(index>=0){
-					historyArr.splice(index,1)
-				}
-								
-				historyArr.unshift(item)	
-				historyArr=historyArr.slice(0,10)		
-				uni.setStorageSync("historyArr",historyArr)
 			},
 			checkFavorite(){
 				//检查该新闻是否已被收藏			

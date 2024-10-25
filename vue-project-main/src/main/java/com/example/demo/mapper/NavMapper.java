@@ -9,5 +9,5 @@ import java.util.List;
 @Mapper
 public interface NavMapper {
     @Select("SELECT * FROM navlist")
-    List<Nav> getAllNavs();
+     List<Nav> getAllNavs();
 }
