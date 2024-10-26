@@ -27,7 +27,8 @@ public class UserController {
     @PostMapping//注解标记这是一个处理HTTP POST请求的方法
     public Integer save(@RequestBody User user) {//@RequestBod注解表示参数user应该从HTTP请求体中绑定
         //新增和更新
-        return userService.save(user);//这个方法用于新增或更新用户信息，并调用UserService的save方法
+        userService.save(user);//这个方法用于新增或更新用户信息，并调用UserService的save方法
+        return user.getId();
     }
 
     //查询所有数据
@@ -70,6 +71,17 @@ public class UserController {
         }
         return null;
     }
-
+    @GetMapping("/checkNickname/{nickname}")//根据昵称获得对应用户信息
+    public User getUserByNickname(@PathVariable String nickname) {
+        return userService.getUserByNickname(nickname);
+    }
+    @GetMapping("/checkEmail/{email}")//根据邮箱获得对应用户信息
+    public User getUserByEmail(@PathVariable String email) {
+        return userService.getUserByEmail(email);
+    }
+    @GetMapping("/checkPhone/{Phone}")//根据手机号获得对应用户信息
+    public User getUserByPhone(@PathVariable String Phone) {
+        return userService.getUserByPhone(Phone);
+    }
 
 }

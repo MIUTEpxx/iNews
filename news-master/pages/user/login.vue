@@ -9,7 +9,7 @@
                  <input type="text" v-model="userId" placeholder="请输入账号">
 				 <input type="password" v-model="password" placeholder="请输入密码">
                 <div class="agrement">
-                    <checkbox :checked="isChecked" @change="checkboxChange" />
+                    <checkbox :checked="isChecked" @click="checkbox()" />
                     <span>已阅读并同意 <a href="">《用户服务协议》及《隐私政策》</a></span>
                 </div>
                 <button @click="login">登录</button>
@@ -35,8 +35,8 @@ export default {
 	this.app = getApp();
   },
   methods: {
-    checkboxChange(e) {
-      this.isChecked = e.detail.value.length > 0;
+    checkbox() {
+      this.isChecked = !this.isChecked;
     },
 	goSignUp(){//前往注册界面
 		uni.navigateTo({
@@ -44,8 +44,15 @@ export default {
 		})
 	},
 	login(){//登录账号
-		// if(!this.isChecked) return;
-		//console.log("login!");
+		if(!this.isChecked){
+			//未勾选阅读并同意《用户服务协议》及《隐私政策》
+			uni.showToast({
+			  title: '未勾选阅读并同意\n《用户服务协议》及《隐私政策》',
+			  icon: 'error',
+			  duration: 1500 // 弹窗显示的时间，单位毫秒
+			});
+			return
+		}
 		uni.request({
 		    url: "http://localhost:9090/user/login/"+this.userId+"/"+this.password, 
 			method:'GET',

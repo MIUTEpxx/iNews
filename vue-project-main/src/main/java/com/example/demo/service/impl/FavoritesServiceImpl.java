@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class FavoritesImpl implements FavoritesService {
+public class FavoritesServiceImpl implements FavoritesService {
     @Autowired
     private FavoritesMapper favoritesMapper;
     @Autowired

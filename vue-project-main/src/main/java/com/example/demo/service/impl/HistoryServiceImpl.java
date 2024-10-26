@@ -6,7 +6,6 @@ import com.example.demo.entity.News;
 import com.example.demo.mapper.HistoryMapper;
 import com.example.demo.mapper.NewsMapper;
 import com.example.demo.service.HistoryService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class HistoryImpl implements HistoryService {
+public class HistoryServiceImpl implements HistoryService {
     @Autowired
     private HistoryMapper historyMapper;
     @Autowired

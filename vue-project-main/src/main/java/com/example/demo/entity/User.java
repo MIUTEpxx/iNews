@@ -1,6 +1,7 @@
 package com.example.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -15,4 +16,10 @@ public class User {
     private String email;
     private String phone;
     private String picurl;
+
+    // 反序列化时使用的构造器或方法 使前端向后端传递user数据时,其password不至于为null
+    @JsonProperty("password")
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
