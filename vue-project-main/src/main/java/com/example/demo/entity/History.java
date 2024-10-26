@@ -6,5 +6,5 @@ import lombok.Data;
 public class History {
    private Integer userid;
    private Integer newsid;
-   private String tiem;
+   private String looktime;
 }

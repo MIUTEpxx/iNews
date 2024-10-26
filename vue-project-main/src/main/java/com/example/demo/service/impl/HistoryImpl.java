@@ -29,7 +29,7 @@ public class HistoryImpl implements HistoryService {
             News news = newsMapper.getNewsById(history.getNewsid());
             HistoryItem historyItem = new HistoryItem();
             historyItem.setNewsid(history.getNewsid());
-            historyItem.setTiem(history.getTiem());
+            historyItem.setLooktime(history.getLooktime());
             historyItem.setAuthor(news.getAuthor());
             historyItem.setTitle(news.getTitle());
             historyItem.setPicurl(news.getPicurl());
@@ -45,15 +45,15 @@ public class HistoryImpl implements HistoryService {
     }
 
     @Override
-    public boolean insertFavorite(Integer userid,Integer newsid,String time){
+    public boolean insertFavorite(Integer userid,Integer newsid,String looktime){
         //添加新的历史记录
-        if(historyMapper.insertFavorite(userid, newsid, time)>0) return true;
+        if(historyMapper.insertFavorite(userid, newsid, looktime)>0) return true;
         else return false;
     }
     @Override
-    public boolean updateHistoryById( Integer userid, Integer newsid, String time){
+    public boolean updateHistoryById( Integer userid, Integer newsid, String looktime){
         //更新 根据用户id和新闻id查找具体的一条历史记录的上次浏览时间
-        if(historyMapper.updateHistoryById(userid, newsid, time)>0) return true;
+        if(historyMapper.updateHistoryById(userid, newsid, looktime)>0) return true;
         else return false;
     }
 }

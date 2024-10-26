@@ -42,7 +42,16 @@
 					      console.error('用户id:'+this.app.globalData.userId+' 数据请求失败:', err);
 					    }
 				})
-			}
+			},
+			//跳转到详情页
+			goDetail(item){				
+				uni.navigateTo({
+					url:`/pages/detail/detail?cid=${item.classid}&id=${item.id}`
+					//url:`/pages/detail/detail?id=${item.id}`
+				})
+				//console.log(item.classid);
+				//console.log(item.id);
+			},
 		},
 	}
 </script>

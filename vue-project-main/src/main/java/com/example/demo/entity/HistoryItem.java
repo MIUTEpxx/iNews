@@ -7,7 +7,7 @@ import lombok.Data;
 public class HistoryItem {
 
     private Integer newsid; //新闻id
-    private String tiem;    //上次浏览时间
+    private String looktime;    //上次浏览时间
     private String title;   //标题
     private String picurl;  //封面图片路径
     private String author;  //作者

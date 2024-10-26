@@ -15,7 +15,7 @@ public interface NewsMapper {
     @Select("SELECT * FROM newslist")
      List<News> getAllNews();
 
-    @Select("SELECT * FROM newslist WHERE classid = #{classid}")
+    @Select("SELECT * FROM newslist WHERE classid = #{classid} ORDER BY posttime DESC")
      List<News> getNewsByClassId(@Param("classid") Integer classid);
 
     @Select("SELECT * FROM newslist WHERE id = #{id}")
