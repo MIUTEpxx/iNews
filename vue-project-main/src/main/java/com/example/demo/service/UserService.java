@@ -8,6 +8,7 @@ public interface UserService {
     public User getUserByNickname(String nickname);
     public User getUserByEmail(String email);
     public User getUserByPhone(String phone);
+    public boolean updatePicurlById(Integer id, String picurl);
 }
 
 /*这个服务类UserService提供了一个简单的业务逻辑层，用于处理用户的保存和更新操作。

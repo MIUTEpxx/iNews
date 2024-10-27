@@ -30,6 +30,9 @@ public interface UserMapper {
         //keyProperty: 这个属性指定了应该将检索到的自动生成的键值设置到目标对象的哪个属性上。
     int insert(User user);
 
+    //用户更新头像
+    @Update("UPDATE user SET picurl = #{picurl} WHERE id = #{id}")
+    int updatePicurlById(@Param("id") Integer id, @Param("picurl") String picurl);
 
     int update(User user);//已经在对应的User.xml映射文件中定义了相应的SQL更新语句
 

@@ -36,4 +36,10 @@ public class UserServiceImpl implements UserService {
     public User getUserByPhone(String phone){
         return userMapper.getUserByPhone(phone);
     }
+    @Override
+    public boolean updatePicurlById(Integer id, String picurl){
+        //更新用户头像
+        if(userMapper.updatePicurlById(id,picurl)>0) return true;
+        else return false;
+    }
 }

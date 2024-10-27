@@ -16,6 +16,11 @@
                 <div class="login-title" @click="goSignUp">
                     <span>没有账号?点击注册!</span>
                 </div>
+				<view class="warning">
+					<view class="userIdIsNumeric" v-if="!this.userIdIsNumeric">
+						*账号只能包含数字!
+					</view>
+				</view>	
             </div>
         </div>
 </template>
@@ -25,12 +30,19 @@ export default {
   data() {
     return {
       isChecked: false,
+	  userIdIsNumeric:true,//账号只由数组组成
 	  userId:'',
 	  password:'',
 	  user:{},
 	  app:{},
     };
   },
+  watch: {
+    userId: { handler: function(newVal, oldVal) {
+		if(newVal!='') 
+			this.userIdIsNumeric=/^\d+$/.test(this.userId)//检查是否只包含数字
+		}},
+   },
   onload(){
 	this.app = getApp();
   },
@@ -53,13 +65,22 @@ export default {
 			});
 			return
 		}
+		if(!this.userIdIsNumeric){
+			//账号格式不正确
+			uni.showToast({
+			  title: '账号格式不正确',
+			  icon: 'error',
+			  duration: 1500 // 弹窗显示的时间，单位毫秒
+			});
+			return
+		}
 		uni.request({
 		    url: "http://localhost:9090/user/login/"+this.userId+"/"+this.password, 
 			method:'GET',
 		    success: res => {
 		        this.user=res.data;
-				//console.log(this.user);
-				if(this.user!=null&&this.user!=""){//登录成功!更新用户全局数据
+				console.log(this.user);
+				if(this.user!=null&&this.user!=""&&!this.user.error){//登录成功!更新用户全局数据
 					this.$set(getApp().globalData,'userId',this.user.id)
 					this.$set(getApp().globalData,'isLoggedIn',true)
 					this.$forceUpdate()
@@ -164,5 +185,10 @@ export default {
 .login-title{
     margin-top: 20px;
     color: #00000085;
+}
+.warning{
+	padding: 10px;
+	font-size: 14px;
+	color: red;
 }
 </style>

@@ -59,6 +59,14 @@
 		        "enablePullDownRefresh": false
 		    }
 		    
+		},
+		{
+		    "path" : "pages/user/headImg",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "用户头像",
+		        "enablePullDownRefresh": false
+		    }
 		    
 		}
     ],

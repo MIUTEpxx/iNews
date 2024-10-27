@@ -25,6 +25,7 @@
 			this.getUserInfo();
 		},
 		onShow(){//页面显示/切入前台时触发
+			this.getUserInfo();
 		},
 		  watch: {
 		     'app.globalData': {

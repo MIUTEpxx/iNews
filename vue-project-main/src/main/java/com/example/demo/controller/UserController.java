@@ -7,15 +7,25 @@ import com.example.demo.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @RestController//标记这个类为Spring MVC的控制器，并且其中的每个方法返回的对象都会直接序列化为HTTP响应体
 @RequestMapping("/user")//表示这个控制器处理的所有请求都会映射到以/user为前缀的路径
 public class UserController {
+    // 定义用户头像文件存储的基路径
+
     private static final Logger log = LoggerFactory.getLogger(UserController.class);
     @Autowired//注解用于自动装配UserMapper的实例，以便在控制器中使用它们的方法
     private UserMapper userMapper;
@@ -84,4 +94,37 @@ public class UserController {
         return userService.getUserByPhone(Phone);
     }
 
+    private static final String BASE_UPLOAD_FOLDER = "/images/user/";
+    @PostMapping("/uploadHeadImg")//用户更新头像文件
+    public ResponseEntity<?> uploadFile(//<?> 是一个通配符，表示响应实体可以包含任何类型的主体（body）使得 uploadFile 方法可以返回不同类型的响应体
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("userId") Integer  userId) {
+
+        if (file.isEmpty()) {
+            return ResponseEntity.status(400).body("文件为空，请选择一个文件上传。");
+        }
+
+        try {
+            long currentTimestamp = System.currentTimeMillis() / 1000;//获取当前时间戳
+            String timestampString = String.valueOf(currentTimestamp);
+            // 构建完整的文件路径
+            File directory = new File("");//参数为空
+            String filename = userId.toString() + "_"+timestampString+".jpg";
+            Path destinationFile = Paths.get(directory.getCanonicalPath()+BASE_UPLOAD_FOLDER + filename);
+
+            // 检查文件是否存在，如果存在则删除
+            if (Files.exists(destinationFile)) {
+                Files.delete(destinationFile);
+            }
+            // 保存新文件
+            file.transferTo(destinationFile.toFile());
+            //更新数据库
+            userService.updatePicurlById(userId,"/images/user/"+filename);
+            return ResponseEntity.ok("sucess");
+
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("文件上传失败，请重试。");
+        }
+    }
 }

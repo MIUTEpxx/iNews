@@ -1,7 +1,7 @@
 
 <template>
 	<view class="user-hd-unLogin">
-		<view class="user-img">
+		<view class="user-img" @click="goHeadImg()">
 			<img :src="this.user.picurl" alt="" />
 		</view>
 		<view class="user-info">
@@ -46,13 +46,19 @@
 				}		
 		},
 		methods:{
-			goLogin(){
+			goLogin(){//登录界面
 				uni.navigateTo({
-					url:`/pages/user/login`					
-					//url:`/pages/detail/detail?cid=$51&id=1`
+					url:`/pages/user/login`,
 				})
 			},
-			signOut(){
+			goHeadImg(){//头像界面
+				// 对URL进行编码，避免特殊字符导致的问题
+				let picUrl = encodeURIComponent(this.user.picurl); 
+				uni.navigateTo({
+					url:`/pages/user/headImg?picurl=${picUrl}`//传递数据
+				})
+			},
+			signOut(){//登出账号
 				this.$set(getApp().globalData,'userId',0)
 				this.$set(getApp().globalData,'isLoggedIn',false)
 				this.$forceUpdate()
@@ -72,10 +78,14 @@
 		// box-shadow: 1px 1px 3px 1px #c8c8c8;
 		
 		.user-img {
+			 flex: 0 0 30%; /* 参数:不放大，不缩小，基础宽度为30% */
 			img{
-				max-width: 100px;
+				width: 100px;
+				height:100px;
 				border: 2px solid #fff;
 				border-radius: 50%;
+				/* 使图片等比例缩放 */
+				object-fit: cover;
 			}
 		}
 		.user-info{
