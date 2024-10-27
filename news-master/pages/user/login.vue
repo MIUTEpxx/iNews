@@ -6,7 +6,7 @@
             <div class="login-list"> 
                 <h2>欢迎使用 <span>iNews</span> </h2>
                 <p>登录账户,博览天下事</p>
-                 <input type="text" v-model="userId" placeholder="请输入账号">
+                 <input type="text" v-model="userid" placeholder="请输入账号">
 				 <input type="password" v-model="password" placeholder="请输入密码">
                 <div class="agrement">
                     <checkbox :checked="isChecked" @click="checkbox()" />
@@ -31,7 +31,7 @@ export default {
     return {
       isChecked: false,
 	  userIdIsNumeric:true,//账号只由数组组成
-	  userId:'',
+	  userid:'',
 	  password:'',
 	  user:{},
 	  app:{},
@@ -75,13 +75,13 @@ export default {
 			return
 		}
 		uni.request({
-		    url: "http://localhost:9090/user/login/"+this.userId+"/"+this.password, 
+		    url: "http://localhost:9090/user/login/"+this.userid+"/"+this.password, 
 			method:'GET',
 		    success: res => {
 		        this.user=res.data;
 				console.log(this.user);
 				if(this.user!=null&&this.user!=""&&!this.user.error){//登录成功!更新用户全局数据
-					this.$set(getApp().globalData,'userId',this.user.id)
+					this.$set(getApp().globalData,'userId',this.user.userid)
 					this.$set(getApp().globalData,'isLoggedIn',true)
 					this.$forceUpdate()
 					// 弹出登录成功的提示

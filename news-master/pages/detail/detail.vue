@@ -1,24 +1,3 @@
-<template>
-	<view class="detail">
-		<view class="title">{{detail.title}}</view>
-		<view class="info">
-			<view class="author">编辑：{{detail.author}}</view>
-			<view class="time">发布日期：{{detail.posttime}}</view>
-		</view>
-		<view class="content">
-			<rich-text :nodes="detail.content"></rich-text>			
-		</view>
-		<view class="interaction">
-			<view class="favorites" v-if="!this.isFavorited" @click="changeFavorite">
-				<i class="iconfont icon-shoucang"></i>
-			</view>
-			<view class="favorites-yes" v-if="this.isFavorited" @click="changeFavorite">
-				<i class="iconfont icon-shoucang"></i>
-			</view>
-		</view>
-	</view>
-</template>
-
 <script>
 	import {parseTime} from "@/utils/tool.js"
 	
@@ -30,12 +9,12 @@
 				detail:{},
 				app:{},
 				isFavorited: false, // 表示新闻是否被收藏
+				commentContent:'',
 			};
 		},
 		onLoad(e){			
 			this.options=e;//e 包含了 cid 和 id
-			// console.log("cid: " + e.cid); // 输出新闻分类的ID
-			//console.log("id: " + e.id);   // 输出新闻的ID
+			// console.log("e:",e);
 			this.getDetail();
 			this.app=getApp();
 		},
@@ -57,8 +36,6 @@
 		methods:{
 			getDetail(){
 				uni.request({
-					// url:"https://ku.qingnian8.com/dataApi/news/detail.php",
-					// data:this.options,
 					url:"http://localhost:9090/api/detail/"+this.options.id,
 					success:res=>{
 						//console.log("res.data.posttim: "+res.data.posttim)
@@ -210,6 +187,43 @@
 	}
 </script>
 
+<template>
+	<view class="detail">
+		<view class="title">{{detail.title}}</view>
+		<view class="info">
+			<view class="author">编辑：{{detail.author}}</view>
+			<view class="time">发布日期：{{detail.posttime}}</view>
+		</view>
+		<view class="content">
+			<rich-text :nodes="detail.content"></rich-text>			
+		</view>
+		<view class="comment">
+			<p>评论区</p>
+			<hr />
+			<view class="ordination">
+				<p>热门</p>
+				<span>|</span>
+				<p>时间</p>
+			</view>
+		</view>
+		<view class="interaction">
+			<view class="favorites" v-if="!this.isFavorited" @click="changeFavorite">
+				<i class="iconfont icon-shoucang"></i>
+			</view>
+			<view class="favorites-yes" v-if="this.isFavorited" @click="changeFavorite">
+				<i class="iconfont icon-shoucang"></i>
+			</view>
+			
+			<view class="comment-input">
+				<textarea placeholder="请输入评论内容" v-model="commentContent" />
+			</view>
+		</view>
+		
+	</view>
+</template>
+
+
+
 <style lang="scss">
 .detail{
 	padding:30rpx;
@@ -229,29 +243,55 @@
 	.content{
 		padding-bottom:50rpx;		
 	}
+	.comment{
+		margin-bottom: 100px;
+	}
 	.interaction{
+		position: fixed;
+		width: 100%;
+		left: 0;
+		bottom: calc( var(--window-bottom));
+		z-index: 1030;	    
+		margin-bottom: 6;
+		padding:5px 10px;
 		display: flex;
-		padding:20rpx;
-		background: #e9f8ec;
-		border-radius: 25px;
+		align-items: center;
+		background: #F6F6F6;
+		box-shadow: 0px 0px 3px 1px #d5d5d5;
+		border-radius: 10px 10px 0px 0px;
 		.favorites{
 			padding: 5px;
 			background: white;
 			border-radius: 50%;
 			border: 3px solid #5d5b5b;
+			box-shadow: 1px 1px 3px 1px #d5d5d5;
 			i{
 				color:#5d5b5b;
-				font-size: 40px;
+				font-size: 30px;
 			}
 		}
 		.favorites-yes{
 			padding: 5px;
 			background: #feee89;
 			border-radius: 50%;
-			border: 3px solid #ff6d00;
+			border: 3px solid #ffa45a;
+			box-shadow: 1px 1px 3px 1px #d5d5d5;
 			i{
-				color:#ff6d00;
-				font-size: 40px;
+				color:#ffa45a;
+				font-size: 30px;
+			}
+		}
+		.comment-input{
+			width: 80%;
+			height: 50px;
+			margin-left: 15px;
+			padding: 5px;
+			background: #e8e8e8;
+			border-radius: 10px;
+			
+			textarea{
+				width: 100%;
+				height: 100%;
 			}
 		}
 	}

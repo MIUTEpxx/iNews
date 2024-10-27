@@ -15,7 +15,7 @@ public class FavoritesController {
 
     @GetMapping("/getNewsids/{userid}")//根据用户id获得收藏表里对应新闻id,
     public List<Integer> getFavoritesById(@PathVariable Integer userid) {
-        return favoritesService.getFavoritesById(userid);
+        return favoritesService.getFavoritesByUserid(userid);
     }
     @GetMapping("/getNews/{userid}")//根据用户id获得对应新闻信息对象列表
     public List<News> getNewsByUserFavorites(@PathVariable Integer userid) {

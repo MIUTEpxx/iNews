@@ -16,6 +16,6 @@ public interface DetailMapper {
     @Select("SELECT * FROM detail")
     List<Detail> getAllDetail();
 
-    @Select("SELECT * FROM detail WHERE id = #{id}")
-    Detail getDetailById(@Param("id") Integer id);
+    @Select("SELECT * FROM detail WHERE newsid = #{newsid}")
+    Detail getDetailById(@Param("newsid") Integer newsid);
 }

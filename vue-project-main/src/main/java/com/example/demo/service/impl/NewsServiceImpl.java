@@ -22,21 +22,21 @@ public class NewsServiceImpl implements NewsService {
         return newsMapper.getNewsByClassId(classid);
     }
     @Override
-    public News getNewsById(Integer id){
-        return newsMapper.getNewsById(id);
+    public News getNewsByNewsid(Integer id){
+        return newsMapper.getNewsByNewsid(id);
     }
     @Override
-    public List<News> getNewsByIds(List<Integer> newsids){
+    public List<News> getNewsByNewsids(List<Integer> newsids){
         List<News> newsList = new ArrayList<>();
         for(Integer id : newsids){
-            newsList.add(newsMapper.getNewsById(id));
+            newsList.add(newsMapper.getNewsByNewsid(id));
         }
         return newsList;
     }
     //更新id对应新闻的浏览量信息(使其加一)
     @Override
     public int increaseNewsHits(Integer newsId) {
-        return newsMapper.updateNewsHitsById(newsId);
+        return newsMapper.updateNewsHitsByNewsid(newsId);
     }
 
 }

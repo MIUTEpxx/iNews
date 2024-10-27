@@ -20,8 +20,8 @@ public class NewsController {
     }
     //更新newsid对应新闻的浏览量(使其加一)
     @PutMapping("/hits/{newsid}")
-    public boolean increaseNewsHits(@PathVariable("newsid") Integer newsId) {
-        int result = newsService.increaseNewsHits(newsId);
+    public boolean increaseNewsHits(@PathVariable("newsid") Integer newsid) {
+        int result = newsService.increaseNewsHits(newsid);
         if (result > 0) {
             return true;
         } else {

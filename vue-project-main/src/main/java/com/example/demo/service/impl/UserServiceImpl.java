@@ -13,7 +13,7 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Override
     public int save(User user) {//这是一个公共方法，用于保存或更新用户信息
-        if(user.getId()==null){
+        if(user.getUserid()==null){
             return userMapper.insert(user);//插入新用户记录
         }
         else{
@@ -21,8 +21,8 @@ public class UserServiceImpl implements UserService {
         }
     }
     @Override
-    public User getUserById(Integer id) {
-        return userMapper.getUserById(id);
+    public User getUserByUserid(Integer userid) {
+        return userMapper.getUserByUserid(userid);
     }
     @Override
     public User getUserByNickname(String nickname) {
@@ -37,9 +37,9 @@ public class UserServiceImpl implements UserService {
         return userMapper.getUserByPhone(phone);
     }
     @Override
-    public boolean updatePicurlById(Integer id, String picurl){
+    public boolean updatePicurlByUserid(Integer userid, String picurl){
         //更新用户头像
-        if(userMapper.updatePicurlById(id,picurl)>0) return true;
+        if(userMapper.updatePicurlByUserid(userid,picurl)>0) return true;
         else return false;
     }
 }

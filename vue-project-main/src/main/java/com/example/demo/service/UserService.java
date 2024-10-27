@@ -4,11 +4,11 @@ import com.example.demo.entity.User;
 
 public interface UserService {
     public int save(User user);
-    public User getUserById(Integer id);
+    public User getUserByUserid(Integer userid);
     public User getUserByNickname(String nickname);
     public User getUserByEmail(String email);
     public User getUserByPhone(String phone);
-    public boolean updatePicurlById(Integer id, String picurl);
+    public boolean updatePicurlByUserid(Integer userid, String picurl);
 }
 
 /*这个服务类UserService提供了一个简单的业务逻辑层，用于处理用户的保存和更新操作。

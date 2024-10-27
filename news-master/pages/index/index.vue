@@ -5,8 +5,8 @@
 			<view class="item" 
 			v-for="(item,index) in navArr"
 			:class="index==navIndex ? 'active' : '' "  
-			@click="clickNav(index,item.id)" 
-			:key="item.id"
+			@click="clickNav(index,item.classid)" 
+			:key="item.classidid"
 			>{{item.classname}}<!-- 栏目名 --></view>			
 		</scroll-view>
 		
@@ -67,11 +67,8 @@
 			//跳转到详情页
 			goDetail(item){				
 				uni.navigateTo({
-					url:`/pages/detail/detail?cid=${item.classid}&id=${item.id}`
-					//url:`/pages/detail/detail?id=${item.id}`
+					url:`/pages/detail/detail?cid=${item.classid}&id=${item.newsid}`
 				})
-				//console.log(item.classid);
-				//console.log(item.id);
 			},
 			
 			//获取导航列表数据
@@ -89,11 +86,6 @@
 			//获取新闻列表数据
 			getNewsData() {
 				 uni.request({
-					 //     url: "https://ku.qingnian8.com/dataApi/news/newslist.php",
-					 //     data: {                       
-					 //         cid: this.currentId,
-					 //         page: this.currentPage
-					 //     },
 				        url: "http://localhost:9090/api/news/classid/" + this.currentId,
 				        data: {
 				            // page: this.currentPage

@@ -22,6 +22,6 @@ public interface HistoryMapper {
 
     //更新已有的历史记录的上次浏览时间
     @Update("UPDATE history SET looktime = #{looktime} WHERE userid = #{userid} AND newsid = #{newsid}")
-     int updateHistoryById(@Param("userid") Integer userid, @Param("newsid") Integer newsid, @Param("looktime") String looktime);
+     int updateHistoryByUserid(@Param("userid") Integer userid, @Param("newsid") Integer newsid, @Param("looktime") String looktime);
 
 }

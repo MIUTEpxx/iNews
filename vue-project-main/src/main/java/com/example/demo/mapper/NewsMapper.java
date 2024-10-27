@@ -18,9 +18,9 @@ public interface NewsMapper {
     @Select("SELECT * FROM newslist WHERE classid = #{classid} ORDER BY posttime DESC")
      List<News> getNewsByClassId(@Param("classid") Integer classid);
 
-    @Select("SELECT * FROM newslist WHERE id = #{id}")
-     News getNewsById(@Param("id") Integer id);
+    @Select("SELECT * FROM newslist WHERE newsid = #{newsid}")
+     News getNewsByNewsid(@Param("newsid") Integer newsid);
     //更新新闻点击次数(浏览量)
-    @Update("UPDATE newslist SET hits = hits + 1 WHERE id = #{id}")
-     int updateNewsHitsById(@Param("id") Integer id);
+    @Update("UPDATE newslist SET hits = hits + 1 WHERE newsid = #{newsid}")
+     int updateNewsHitsByNewsid(@Param("newsid") Integer newsid);
 }

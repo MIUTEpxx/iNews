@@ -17,8 +17,8 @@ public class FavoritesServiceImpl implements FavoritesService {
     private NewsService newsService;
 
     @Override
-    public List<Integer> getFavoritesById(Integer userid){
-        return favoritesMapper.getFavoritesById(userid);//根据用户id查询其收藏的新闻
+    public List<Integer> getFavoritesByUserid(Integer userid){
+        return favoritesMapper.getFavoritesByUserid(userid);//根据用户id查询其收藏的新闻
     }
     @Override
     public boolean deleteFavorites(Integer userid,Integer newsid){
@@ -30,13 +30,13 @@ public class FavoritesServiceImpl implements FavoritesService {
     }
     @Override
     public boolean checkIsFavorite(Integer userid,Integer newsid){
-        List<Integer> newsids = favoritesMapper.getFavoritesById(userid);
+        List<Integer> newsids = favoritesMapper.getFavoritesByUserid(userid);
         return newsids.contains(newsid);//检查新闻newsid是否在用户userid的收藏中
     }
     @Override
     public List<News> getNewsByUserFavorites(Integer userid){
-        List<Integer> newsids = favoritesMapper.getFavoritesById(userid);
-        return newsService.getNewsByIds(newsids);
+        List<Integer> newsids = favoritesMapper.getFavoritesByUserid(userid);
+        return newsService.getNewsByNewsids(newsids);
     }
 
 }

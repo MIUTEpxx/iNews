@@ -46,11 +46,8 @@
 			//跳转到详情页
 			goDetail(item){				
 				uni.navigateTo({
-					url:`/pages/detail/detail?cid=${item.classid}&id=${item.id}`
-					//url:`/pages/detail/detail?id=${item.id}`
+					url:`/pages/detail/detail?cid=${item.classid}&id=${item.newsid}`
 				})
-				//console.log(item.classid);
-				//console.log(item.id);
 			},
 		},
 	}

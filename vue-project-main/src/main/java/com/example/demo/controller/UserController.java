@@ -1,6 +1,5 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.News;
 import com.example.demo.entity.User;
 import com.example.demo.mapper.UserMapper;
 import com.example.demo.service.UserService;
@@ -18,7 +17,6 @@ import java.util.Map;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 
 @RestController//标记这个类为Spring MVC的控制器，并且其中的每个方法返回的对象都会直接序列化为HTTP响应体
@@ -38,7 +36,7 @@ public class UserController {
     public Integer save(@RequestBody User user) {//@RequestBod注解表示参数user应该从HTTP请求体中绑定
         //新增和更新
         userService.save(user);//这个方法用于新增或更新用户信息，并调用UserService的save方法
-        return user.getId();
+        return user.getUserid();
     }
 
     //查询所有数据
@@ -47,9 +45,9 @@ public class UserController {
         return userMapper.findAll();
     }//返回所有用户的列表，通过调用UserMapper的findAll方法实现
 
-    @DeleteMapping("/{id}")//注解标记这是一个处理HTTP DELETE请求的方法，其中{id}是一个路径变量
-    public Integer delete(@PathVariable Integer id) {//@PathVariable注解表示参数id应该从URI路径中绑定
-        return userMapper.deleteById(id);//根据提供的用户ID删除用户，通过调用UserMapper的deleteById方法实现
+    @DeleteMapping("/{userid}")//注解标记这是一个处理HTTP DELETE请求的方法，其中{userid}是一个路径变量
+    public Integer delete(@PathVariable Integer userid) {//@PathVariable注解表示参数id应该从URI路径中绑定
+        return userMapper.deleteByUserid(userid);//根据提供的用户ID删除用户，通过调用UserMapper的deleteById方法实现
     }
 
     @GetMapping("/page")//注解标记这是一个处理HTTP GET请求的方法，用于分页查询 @RequestParam注解表示参数应该从请求的查询参数中绑定
@@ -66,14 +64,14 @@ public class UserController {
     }
 
     //根据id查询用户信息
-    @GetMapping("/{id}")
-    public User getUserById(@PathVariable Integer id) {
-        System.out.println(id);
-        return userService.getUserById(id);
+    @GetMapping("/{userid}")
+    public User getUserById(@PathVariable Integer userid) {
+        System.out.println(userid);
+        return userService.getUserByUserid(userid);
     }
     @RequestMapping(value = "/login/{id}/{password}", method = RequestMethod.GET)
     public User login(@PathVariable Integer id, @PathVariable String password) {
-        User user = userService.getUserById(id);
+        User user = userService.getUserByUserid(id);
         if(user!=null){
             if(user.getPassword().equals(password)){
                 return user;
@@ -98,7 +96,7 @@ public class UserController {
     @PostMapping("/uploadHeadImg")//用户更新头像文件
     public ResponseEntity<?> uploadFile(//<?> 是一个通配符，表示响应实体可以包含任何类型的主体（body）使得 uploadFile 方法可以返回不同类型的响应体
             @RequestParam("file") MultipartFile file,
-            @RequestParam("userId") Integer  userId) {
+            @RequestParam("userid") Integer  userid) {
 
         if (file.isEmpty()) {
             return ResponseEntity.status(400).body("文件为空，请选择一个文件上传。");
@@ -109,7 +107,7 @@ public class UserController {
             String timestampString = String.valueOf(currentTimestamp);
             // 构建完整的文件路径
             File directory = new File("");//参数为空
-            String filename = userId.toString() + "_"+timestampString+".jpg";
+            String filename = userid.toString() + "_"+timestampString+".jpg";
             Path destinationFile = Paths.get(directory.getCanonicalPath()+BASE_UPLOAD_FOLDER + filename);
 
             // 检查文件是否存在，如果存在则删除
@@ -119,7 +117,7 @@ public class UserController {
             // 保存新文件
             file.transferTo(destinationFile.toFile());
             //更新数据库
-            userService.updatePicurlById(userId,"/images/user/"+filename);
+            userService.updatePicurlByUserid(userid,"/images/user/"+filename);
             return ResponseEntity.ok("sucess");
 
         } catch (IOException e) {

@@ -5,7 +5,6 @@ import com.example.demo.entity.Detail;
 import com.example.demo.entity.FullNewsInfo;
 import com.example.demo.entity.News;
 import com.example.demo.mapper.DetailMapper;
-import com.example.demo.mapper.NewsMapper;
 import com.example.demo.service.DetailService;
 import com.example.demo.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,17 +19,17 @@ public class DetailServiceImpl implements DetailService {
 
 
     @Override
-    public Detail getDetailById(Integer id) {
-        return detailMapper.getDetailById(id);
+    public Detail getDetailByNewsid(Integer newsid) {
+        return detailMapper.getDetailById(newsid);
     }
     @Override
-    public FullNewsInfo getFullNewsInfoById(Integer id){
-        News resNews =newsService.getNewsById(id);
-        Detail resDetail =getDetailById(id);
+    public FullNewsInfo getFullNewsInfoByNewsid(Integer newsid){
+        News resNews =newsService.getNewsByNewsid(newsid);
+        Detail resDetail =getDetailByNewsid(newsid);
 
         if (resNews != null && resDetail != null){
             FullNewsInfo resFullNewsInfo = new FullNewsInfo();
-            resFullNewsInfo.setId(resNews.getId());
+            resFullNewsInfo.setNewsid(resNews.getNewsid());
             resFullNewsInfo.setTitle(resNews.getTitle());
             resFullNewsInfo.setAuthor(resNews.getAuthor());
             resFullNewsInfo.setPosttime(resNews.getPosttime());

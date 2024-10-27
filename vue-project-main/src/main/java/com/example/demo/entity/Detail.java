@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class Detail {
-    private Integer id;
+    private Integer newsid;
     private String content;
     private Integer classid;
 }

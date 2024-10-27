@@ -1,10 +1,9 @@
 package com.example.demo.entity;
 import lombok.Data;
-import java.util.Date;
 
 @Data
 public class News {
-    private Integer id;
+    private Integer newsid;
     private String title;
     private String picurl;
     private String posttime;
