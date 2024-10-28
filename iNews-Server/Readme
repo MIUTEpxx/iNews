@@ -1,11 +1,1 @@
-由于本人第一次使用github仓库 vue项目的module包无法上传 可能是技术原因
 
-项目启动方法 
-1.首先运行springboot
-2.进入work目录 npm run serve 即可看到后端页面 新手小白 或许有些简陋
-
-介绍：
-本项目采用了springboot+mysql+vue进行搭建 
-
-在项目制作工程中遇到了很多bug 其中一个就是maven的依赖包问题 后来发现是因为版本的问题
-在制作过程中还是收益匪浅的
