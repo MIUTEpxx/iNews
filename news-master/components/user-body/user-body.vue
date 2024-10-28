@@ -18,7 +18,7 @@
 				item:[
 					{title:'历史记录',icon:'icon-lishijilu',router:'/pages/user/history'},
 					{title:'我的收藏',icon:'icon-shoucang',router:'/pages/user/favorites'},
-					{title:'我的评论',icon:'icon-pinglun',router:'/pages/user/comment'},
+					{title:'我的评论',icon:'icon-pinglun',router:'/pages/user/myComments'},
 					{title:'消息通知',icon:'icon-xiaoxitongzhi',router:'/pages/user/message'},
 				]
 			};
@@ -34,8 +34,6 @@
 					 });
 					 return;
 				}
-/* 				console.log(typeof(router));
-				console.log(router); */
 				uni.navigateTo({
 					url:router		
 				})

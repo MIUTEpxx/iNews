@@ -1,10 +1,24 @@
 {
-  "id": "",
-  "name": "",
+  "id": "4715587",
+  "name": "iNews",
   "font_family": "iconfont",
   "css_prefix_text": "icon-",
   "description": "",
   "glyphs": [
+    {
+      "icon_id": "1048859",
+      "name": "发送",
+      "font_class": "icon_sent",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "36810627",
+      "name": "点踩",
+      "font_class": "diancai",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
     {
       "icon_id": "4972287",
       "name": "评论",

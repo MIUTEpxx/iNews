@@ -39,7 +39,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public boolean updatePicurlByUserid(Integer userid, String picurl){
         //更新用户头像
-        if(userMapper.updatePicurlByUserid(userid,picurl)>0) return true;
-        else return false;
+        if(userMapper.updatePicurlByUserid(userid,picurl)>0) {return true;}
+        else {return false;}
     }
 }

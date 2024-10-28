@@ -22,8 +22,8 @@ public class NewsServiceImpl implements NewsService {
         return newsMapper.getNewsByClassId(classid);
     }
     @Override
-    public News getNewsByNewsid(Integer id){
-        return newsMapper.getNewsByNewsid(id);
+    public News getNewsByNewsid(Integer newsid){
+        return newsMapper.getNewsByNewsid(newsid);
     }
     @Override
     public List<News> getNewsByNewsids(List<Integer> newsids){

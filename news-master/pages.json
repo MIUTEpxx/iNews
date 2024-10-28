@@ -68,12 +68,21 @@
 		        "enablePullDownRefresh": false
 		    }
 		    
+		},
+		{
+		    "path" : "pages/user/myComments",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "我的评论",
+		        "enablePullDownRefresh": false
+		    }
+		    
 		}
     ],
 	"globalStyle": {//定义了小程序的全局样式
 		"navigationBarTextStyle": "white",//导航栏的文本颜色
 		"navigationBarTitleText": "iNews 爱新闻",//标题
-		"navigationBarBackgroundColor": "#31C27C",//背景颜色
+		"navigationBarBackgroundColor": "#31C27C",//导航栏背景颜色
 		"backgroundColor": "#F8F8F8"//窗口的背景颜色
 	},
 	"uniIdRouter": {},//用于处理用户身份认证的路由配置

@@ -1,8 +1,8 @@
 @font-face {
-   font-family: "iconfont"; /* Project id 4715587 */
-    src: url('//at.alicdn.com/t/c/font_4715587_h2gibg53igr.woff2?t=1729221844631') format('woff2'),
-         url('//at.alicdn.com/t/c/font_4715587_h2gibg53igr.woff?t=1729221844631') format('woff'),
-         url('//at.alicdn.com/t/c/font_4715587_h2gibg53igr.ttf?t=1729221844631') format('truetype');
+  font-family: "iconfont"; /* Project id 4715587 */
+  src: url('//at.alicdn.com/t/c/font_4715587_y96rdgqrpw.woff2?t=1730121801421') format('woff2'),
+       url('//at.alicdn.com/t/c/font_4715587_y96rdgqrpw.woff?t=1730121801421') format('woff'),
+       url('//at.alicdn.com/t/c/font_4715587_y96rdgqrpw.ttf?t=1730121801421') format('truetype');
 }
 
 .iconfont {
@@ -11,6 +11,18 @@
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shanchu:before {
+  content: "\e852";
+}
+
+.icon-icon_sent:before {
+  content: "\e60c";
+}
+
+.icon-diancai:before {
+  content: "\e60a";
 }
 
 .icon-pinglun:before {
@@ -40,4 +52,3 @@
 .icon-pinglun1:before {
   content: "\e8b4";
 }
-
