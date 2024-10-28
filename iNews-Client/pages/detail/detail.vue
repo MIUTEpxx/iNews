@@ -77,6 +77,7 @@
 				})
 			},
 			saveHistory(){
+				if(getApp().globalData.isLoggedIn==false) return;
 				//保存历史记录
 				uni.request({
 					url:"http://localhost:9090/api/history/save/"
