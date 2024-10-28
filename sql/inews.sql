@@ -11,21 +11,52 @@
  Target Server Version : 80036
  File Encoding         : 65001
 
- Date: 23/10/2024 15:40:35
+ Date: 28/10/2024 22:07:15
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 
 -- ----------------------------
+-- Table structure for comment
+-- ----------------------------
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment`  (
+  `commentid` int(0) NOT NULL AUTO_INCREMENT COMMENT '评论id',
+  `userid` int(0) NULL DEFAULT NULL COMMENT '用户id',
+  `newsid` int(0) NULL DEFAULT NULL COMMENT '新闻id',
+  `respondid` int(0) NULL DEFAULT -1 COMMENT '被回复i的评论d',
+  `likes` int(0) NULL DEFAULT 0 COMMENT '点赞量',
+  `posttime` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论时间',
+  `content` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '评论内容',
+  PRIMARY KEY (`commentid`) USING BTREE,
+  INDEX `comment_userid`(`userid`) USING BTREE,
+  INDEX `comment_newsid`(`newsid`) USING BTREE,
+  CONSTRAINT `comment_newsid` FOREIGN KEY (`newsid`) REFERENCES `newslist` (`newsid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comment_userid` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of comment
+-- ----------------------------
+INSERT INTO `comment` VALUES (1, 10086, 2, -1, 11118, '1702568745', '垃圾游戏');
+INSERT INTO `comment` VALUES (2, 10086, 2, -1, -1, '1730113642', '毁我青春!');
+INSERT INTO `comment` VALUES (4, 10086, 1, -1, 3, '1730116485', '牢川,再带红脖子们冲一次罢');
+INSERT INTO `comment` VALUES (5, 10087, 1, -1, 1, '1730116530', '这个特朗普,就是勇哦');
+INSERT INTO `comment` VALUES (6, 10087, 2, -1, 3, '1730116564', '神作预定(确信)');
+
+-- ----------------------------
 -- Table structure for detail
 -- ----------------------------
 DROP TABLE IF EXISTS `detail`;
 CREATE TABLE `detail`  (
-  `id` int(0) NOT NULL COMMENT '新闻id',
+  `newsid` int(0) NOT NULL COMMENT '新闻id',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL COMMENT '详情内容',
   `classid` int(0) NULL DEFAULT NULL COMMENT '新闻栏目id',
-  PRIMARY KEY (`id`) USING BTREE
+  PRIMARY KEY (`newsid`) USING BTREE,
+  INDEX `detail_classid`(`classid`) USING BTREE,
+  CONSTRAINT `detail_newsid` FOREIGN KEY (`newsid`) REFERENCES `newslist` (`newsid`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `detail_classid` FOREIGN KEY (`classid`) REFERENCES `navlist` (`classid`) ON DELETE RESTRICT ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -41,72 +72,102 @@ DROP TABLE IF EXISTS `favorites`;
 CREATE TABLE `favorites`  (
   `userid` int(0) NOT NULL,
   `newsid` int(0) NOT NULL,
-  PRIMARY KEY (`userid`, `newsid`) USING BTREE
+  PRIMARY KEY (`userid`, `newsid`) USING BTREE,
+  INDEX `favorites_newsid`(`newsid`) USING BTREE,
+  CONSTRAINT `favorites_newsid` FOREIGN KEY (`newsid`) REFERENCES `newslist` (`newsid`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `favorites_userid` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of favorites
 -- ----------------------------
 INSERT INTO `favorites` VALUES (10086, 1);
+INSERT INTO `favorites` VALUES (10086, 2);
+INSERT INTO `favorites` VALUES (10087, 2);
+
+-- ----------------------------
+-- Table structure for history
+-- ----------------------------
+DROP TABLE IF EXISTS `history`;
+CREATE TABLE `history`  (
+  `userid` int(0) NOT NULL,
+  `newsid` int(0) NOT NULL,
+  `looktime` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '历史记录上一次点击的时间戳',
+  PRIMARY KEY (`userid`, `newsid`) USING BTREE,
+  INDEX `history_newsid`(`newsid`) USING BTREE,
+  CONSTRAINT `history_newsid` FOREIGN KEY (`newsid`) REFERENCES `newslist` (`newsid`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  CONSTRAINT `history_userid` FOREIGN KEY (`userid`) REFERENCES `user` (`userid`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of history
+-- ----------------------------
+INSERT INTO `history` VALUES (10086, 1, '1730122989');
+INSERT INTO `history` VALUES (10086, 2, '1730123217');
+INSERT INTO `history` VALUES (10087, 1, '1730116512');
+INSERT INTO `history` VALUES (10087, 2, '1730116826');
 
 -- ----------------------------
 -- Table structure for navlist
 -- ----------------------------
 DROP TABLE IF EXISTS `navlist`;
 CREATE TABLE `navlist`  (
-  `id` varchar(4) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '新闻栏目id',
+  `classid` int(0) NOT NULL AUTO_INCREMENT COMMENT '新闻栏目id',
   `classname` varchar(10) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '新闻栏目名',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`classid`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of navlist
 -- ----------------------------
-INSERT INTO `navlist` VALUES ('50', '国内');
-INSERT INTO `navlist` VALUES ('51', '国际');
-INSERT INTO `navlist` VALUES ('52', '体育');
-INSERT INTO `navlist` VALUES ('53', '科技');
-INSERT INTO `navlist` VALUES ('54', '时尚');
-INSERT INTO `navlist` VALUES ('55', '游戏');
+INSERT INTO `navlist` VALUES (50, '国内');
+INSERT INTO `navlist` VALUES (51, '国际');
+INSERT INTO `navlist` VALUES (52, '体育');
+INSERT INTO `navlist` VALUES (53, '科技');
+INSERT INTO `navlist` VALUES (54, '时尚');
+INSERT INTO `navlist` VALUES (55, '游戏');
 
 -- ----------------------------
 -- Table structure for newslist
 -- ----------------------------
 DROP TABLE IF EXISTS `newslist`;
 CREATE TABLE `newslist`  (
-  `id` int(0) NOT NULL COMMENT '新闻id',
+  `newsid` int(0) NOT NULL AUTO_INCREMENT COMMENT '新闻id',
   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '新闻标题',
   `picurl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '新闻封面在静态资源的路径',
   `posttime` varchar(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '新闻发布时间',
   `hits` int(0) NULL DEFAULT NULL COMMENT '新闻点击量',
   `classid` int(0) NULL DEFAULT NULL COMMENT '新闻栏目id,对应navlist中的id',
   `author` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '新闻作者或来源',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`newsid`) USING BTREE,
+  INDEX `newslist_classid`(`classid`) USING BTREE,
+  CONSTRAINT `newslist_classid` FOREIGN KEY (`classid`) REFERENCES `navlist` (`classid`) ON DELETE RESTRICT ON UPDATE CASCADE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of newslist
 -- ----------------------------
-INSERT INTO `newslist` VALUES (1, '特朗普将重返刺杀小镇进行公开演讲!', '/images/news/1.jpg', '1722043200', 123456, 51, 'pxx');
-INSERT INTO `newslist` VALUES (2, '又一个国产3A?苦力怕传说:狂野之息制作决定!', '/images/news/2.png', '1729073066', 114514, 50, 'pxx');
+INSERT INTO `newslist` VALUES (1, '特朗普将重返刺杀小镇进行公开演讲!', '/images/news/1.jpg', '1722043200', 123483, 51, '观察者网');
+INSERT INTO `newslist` VALUES (2, '又一个国产3A?苦力怕传说:狂野之息制作决定!', '/images/news/2.png', '1729073066', 114585, 50, 'pxx');
 
 -- ----------------------------
 -- Table structure for user
 -- ----------------------------
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user`  (
-  `id` int(0) NOT NULL COMMENT '用户账号(id)',
+  `userid` int(0) NOT NULL AUTO_INCREMENT COMMENT '用户账号(id)',
   `nickname` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '用户昵称',
   `password` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '密码',
   `email` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '邮箱',
   `phone` varchar(15) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '手机号',
   `picurl` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '用户头像图片路径',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
+  PRIMARY KEY (`userid`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10096 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES (10086, 'pxx', '123456', '123@email.com', '123456', '/images/user/10086.jpg');
+INSERT INTO `user` VALUES (10086, 'pxx', '123456', '123@email.com', '123456', '/images/user/10086_1730015479.jpg');
+INSERT INTO `user` VALUES (10087, 'test1', '111111', 'test@email.com', '111111', '/images/user/10087_1730015530.jpg');
 
 SET FOREIGN_KEY_CHECKS = 1;
