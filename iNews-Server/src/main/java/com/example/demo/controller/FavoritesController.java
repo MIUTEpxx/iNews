@@ -15,11 +15,11 @@ public class FavoritesController {
 
     @GetMapping("/getNewsids/{userid}")//根据用户id获得收藏表里对应新闻id,
     public List<Integer> getFavoritesById(@PathVariable Integer userid) {
-        return favoritesService.getFavoritesByUserid(userid);
+        return favoritesService.getFavoriteListByUserid(userid);
     }
     @GetMapping("/getNews/{userid}")//根据用户id获得对应新闻信息对象列表
     public List<News> getNewsByUserFavorites(@PathVariable Integer userid) {
-        return favoritesService.getNewsByUserFavorites(userid);
+        return favoritesService.getNewsListByUserFavorites(userid);
     }
     @PostMapping("/add/{userid}/{newsid}")//增加收藏
     public boolean insertFavorites(@PathVariable Integer userid, @PathVariable Integer newsid) {

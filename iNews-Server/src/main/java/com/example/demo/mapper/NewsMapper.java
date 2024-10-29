@@ -11,13 +11,13 @@ import java.util.List;
 
 @Mapper
 public interface NewsMapper {
-
+    //获取当前所有新闻
     @Select("SELECT * FROM newslist")
-     List<News> getAllNews();
-
+     List<News> getNewsList();
+    //根据classid获取对应新闻数据列表List<News>
     @Select("SELECT * FROM newslist WHERE classid = #{classid} ORDER BY posttime DESC")
      List<News> getNewsByClassId(@Param("classid") Integer classid);
-
+    //根据newsid获取对应新闻数据News
     @Select("SELECT * FROM newslist WHERE newsid = #{newsid}")
      News getNewsByNewsid(@Param("newsid") Integer newsid);
     //更新新闻点击次数(浏览量)

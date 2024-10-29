@@ -3,7 +3,6 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.Comment;
 import com.example.demo.entity.CommentItem;
-import com.example.demo.entity.User;
 import com.example.demo.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +17,12 @@ public class CommentController {
 
     @GetMapping("/get_by_newsid/{newsid}")//获得newsid新闻的所有评论
     public List<CommentItem> getCommentByNewsid(@PathVariable("newsid") Integer newsid) {
-        return commentService.getCommentItemByNewsid(newsid);
+        return commentService.getCommentListItemByNewsid(newsid);
     }
 
     @GetMapping("/get_by_userid/{userid}")//获得userid用户的所有评论
     public List<CommentItem> getCommentByUserid(@PathVariable("userid") Integer userid) {
-        return commentService.getCommentItemByUserid(userid);
+        return commentService.getCommentListItemByUserid(userid);
     }
 
     @PostMapping("/add")//注解标记这是一个处理HTTP POST请求的方法

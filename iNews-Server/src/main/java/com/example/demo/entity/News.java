@@ -10,5 +10,4 @@ public class News {
     private Integer hits;
     private Integer classid;
     private String author;
-
 }

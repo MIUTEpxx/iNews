@@ -24,7 +24,7 @@ public class CommentServiceImpl implements CommentService {
     NewsService newsService;
 
     @Override
-    public List<CommentItem> getCommentItemByNewsid(Integer newsid){
+    public List<CommentItem> getCommentListItemByNewsid(Integer newsid){
         News news=newsService.getNewsByNewsid(newsid);
         String newsTitle = news.getTitle();
         List<Comment> commentList=commentMapper.getCommentByNewsid(newsid);
@@ -47,7 +47,7 @@ public class CommentServiceImpl implements CommentService {
         return commentItemList;
     }
     @Override
-    public List<CommentItem> getCommentItemByUserid(Integer userid){
+    public List<CommentItem> getCommentListItemByUserid(Integer userid){
         User user=userService.getUserByUserid(userid);
         List<Comment> commentList=commentMapper.getCommentByUserid(userid);
         List<CommentItem> commentItemList=new ArrayList<CommentItem>();

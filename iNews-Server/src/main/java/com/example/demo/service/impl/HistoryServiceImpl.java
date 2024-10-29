@@ -20,7 +20,7 @@ public class HistoryServiceImpl implements HistoryService {
     private NewsMapper newsMapper;
 
     @Override
-    public List<HistoryItem> getALLHistoryByUserid(Integer userid){
+    public List<HistoryItem> getHistoryListByUserid(Integer userid){
         //根据用户id获得对应所有的历史记录,将对应新闻信息和上次浏览时间储存于HistoryItem中
         List<HistoryItem> historyItems = new ArrayList<>();
         List<History> histories = historyMapper.getALLHistoryById(userid);
@@ -38,21 +38,29 @@ public class HistoryServiceImpl implements HistoryService {
     }
 
     @Override
-    public History getOneHistoryByUserid(Integer userid,Integer newsid){
+    public History getHistoryByUserid(Integer userid, Integer newsid){
         //根据用户id和新闻id查找具体的一条历史记录
         return historyMapper.getOneHistoryById(userid, newsid);
     }
 
     @Override
-    public boolean insertFavorite(Integer userid,Integer newsid,String looktime){
+    public boolean insertHistory(Integer userid, Integer newsid, String looktime){
         //添加新的历史记录
-        if(historyMapper.insertFavorite(userid, newsid, looktime)>0) return true;
-        else return false;
+        if(historyMapper.insertFavorite(userid, newsid, looktime)>0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
     @Override
     public boolean updateHistoryByUserid( Integer userid, Integer newsid, String looktime){
         //更新 根据用户id和新闻id查找具体的一条历史记录的上次浏览时间
-        if(historyMapper.updateHistoryByUserid(userid, newsid, looktime)>0) return true;
-        else return false;
+        if(historyMapper.updateHistoryByUserid(userid, newsid, looktime)>0) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

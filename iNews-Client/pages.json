@@ -15,6 +15,15 @@
             }
             
         }
+		,{
+		    "path" : "pages/search/search",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "搜索新闻",
+		        "enablePullDownRefresh": false //是否开启下拉刷新
+		    }
+		    
+		}
         ,{
             "path" : "pages/detail/detail",
             "style" :                                                                                    
@@ -96,17 +105,17 @@
 				"iconPath": "static/images/home.png",//选项卡上未选中状态的图标路径
 				"selectedIconPath": "static/images/home-h.png"//选项卡上选中状态的图标路径
 			},{
+				"text": "搜索",
+				"pagePath": "pages/search/search",
+				"iconPath": "static/images/search.png",
+				"selectedIconPath": "static/images/search-h.png"
+			},{
 				"text": "个人",
 				"pagePath": "pages/user/user",
 				"iconPath": "static/images/user.png",
 				"selectedIconPath": "static/images/user-h.png"
 			}
-			// ,{
-			// 	"text": "测试",
-			// 	"pagePath": "pages/test/test",
-			// 	"iconPath": "static/images/user.png",
-			// 	"selectedIconPath": "static/images/user-h.png"
-			// }
+			
 		]
 	}
 }

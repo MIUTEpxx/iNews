@@ -18,7 +18,11 @@ public class NewsServiceImpl implements NewsService {
     private NewsMapper newsMapper;
 
     @Override
-    public List<News> getNewsByClassId(Integer classid){
+    public List<News> getNewsList(){
+        return newsMapper.getNewsList();
+    }
+    @Override
+    public List<News> getNewsListByClassid(Integer classid){
         return newsMapper.getNewsByClassId(classid);
     }
     @Override
@@ -26,7 +30,7 @@ public class NewsServiceImpl implements NewsService {
         return newsMapper.getNewsByNewsid(newsid);
     }
     @Override
-    public List<News> getNewsByNewsids(List<Integer> newsids){
+    public List<News> getNewsListByNewsids(List<Integer> newsids){
         List<News> newsList = new ArrayList<>();
         for(Integer id : newsids){
             newsList.add(newsMapper.getNewsByNewsid(id));
