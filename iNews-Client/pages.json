@@ -79,7 +79,7 @@
 		    
 		},
 		{
-		    "path" : "pages/user/myComments",
+		    "path" : "pages/user/my-comments",
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "我的评论",

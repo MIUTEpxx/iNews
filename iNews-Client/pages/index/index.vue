@@ -24,6 +24,7 @@
 			<view v-if="loading==1">数据加载中...</view>
 			<view v-if="loading==2">没有更多了~~</view>
 		</view>
+		
 	</view>
 </template>
 
@@ -43,15 +44,7 @@
 			this.getNavData();
 			this.getNewsData();
 		},
-		onReachBottom(){
-			console.log("到底部了")
-			if(this.loading==2){
-				return;
-			}
-			this.currentPage++;
-			this.loading=1;
-			this.getNewsData();
-		},
+		
 		
 		methods: {
 			//点击导航切换
@@ -63,7 +56,15 @@
 				this.loading=0;
 				this.getNewsData(id);
 			},
-			
+			// onReachBottom(){
+			// 	console.log("到底部了")
+			// 	if(this.loading==2){
+			// 		return;
+			// 	}
+			// 	this.currentPage++;
+			// 	this.loading=1;
+			// 	this.getNewsData();
+			// },
 			//跳转到详情页
 			goDetail(item){				
 				uni.navigateTo({
