@@ -4,10 +4,10 @@
 
 团队成员: 
 
-[@MIUTEpxx]: https://github.com/MIUTEpxx
-[@hrtian111]: https://github.com/hrtian111
+[@MIUTEpxx]: https://github.com/MIUTEpxx	"MIUTEpxx"
+[@hrtian111]: https://github.com/hrtian111	"hrtian111"
 
-/cc @MIUTEpxx@hrtian111
+
 
 ## 运行项目
 
