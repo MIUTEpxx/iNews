@@ -2,9 +2,16 @@
 
 系统设计与开发课程 结对项目
 
-团队成员: @MIUTEpxx @hrtian111
+团队成员: 
+
+[@MIUTEpxx]: https://github.com/MIUTEpxx
+[@hrtian111]: https://github.com/hrtian111
+
+/cc @MIUTEpxx@hrtian111
 
 ## 运行项目
+
+
 
 #### 客户端
 
