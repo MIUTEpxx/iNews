@@ -4,7 +4,7 @@
 
 团队成员: 
 
-@[MIUTEpxx](https://github.com/MIUTEpxx)
+[@MIUTEpxx](https://github.com/MIUTEpxx)
 
 [@hrtian111](https://github.com/hrtian111)
 
@@ -45,3 +45,37 @@
 以使用数据库管理软件 Navicat 为例, 在连接中右键选择运行SQL文件
 
 选择目录sql中 的 inews.sql文件 运行即可得到该项目所需数据库
+
+
+
+## 项目技术
+
+#### 前端:
+
+- uni-App
+- VUE 2.0
+
+![](READMEimg/font-end.png)
+
+#### 后端:
+
+- Spring Boot
+- MySQL
+- MyBatis
+- Maven
+
+![](READMEimg/back-end.png)
+
+## 项目展示
+
+![](READMEimg/1.png)
+
+![](READMEimg/2.png)
+
+![](READMEimg/3.png)
+
+![](READMEimg/4.png)
+
+![](READMEimg/5.png)
+
+![](READMEimg/6.png)
